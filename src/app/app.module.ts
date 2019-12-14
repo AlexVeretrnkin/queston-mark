@@ -13,6 +13,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {TokenInterceptorService} from './core/token-interceptor/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,13 @@ import {SharedModule} from './shared/shared.module';
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

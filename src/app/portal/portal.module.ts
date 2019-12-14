@@ -5,6 +5,8 @@ import { PortalComponent } from './portal/portal.component';
 
 import {PortalRoutingModule} from './portal-routing.module';
 
+import {MatButtonModule} from '@angular/material/button';
+
 
 
 @NgModule({
@@ -13,7 +15,8 @@ import {PortalRoutingModule} from './portal-routing.module';
   ],
   imports: [
     CommonModule,
-    PortalRoutingModule
+    PortalRoutingModule,
+    MatButtonModule
   ]
 })
 export class PortalModule { }

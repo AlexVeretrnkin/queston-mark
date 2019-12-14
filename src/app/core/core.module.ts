@@ -1,17 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth-guard/auth.guard';
-
-
+import {HttpClientModule} from '@angular/common/http';
+import {TokenInterceptorService} from './token-interceptor/token-interceptor.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    TokenInterceptorService
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+}

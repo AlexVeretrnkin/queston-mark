@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-portal',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PortalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  public check(): void {
+    this.authService.check().subscribe((x) => console.log(x));
   }
 
 }

@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CoreModule} from './core/core.module';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {CoreModule} from './core/core.module';
   ],
   imports: [
     CoreModule,
+    SharedModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

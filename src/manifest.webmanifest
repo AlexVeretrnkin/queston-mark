@@ -1,6 +1,6 @@
 {
-  "name": "test-creator-front",
-  "short_name": "test-creator-front",
+  "name": "register-creator-front",
+  "short_name": "register-creator-front",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

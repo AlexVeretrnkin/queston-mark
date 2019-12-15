@@ -2,9 +2,30 @@
   <mat-card-title>QuestionMark</mat-card-title>
   <mat-card-content>
     <form class="mt-3 d-flex flex-column"
-          [formGroup]="formGroup">
+          *ngIf="!isRegister"
+          [formGroup]="formLoginGroup">
       <mat-form-field class="col-8">
         <input [formControlName]="'login'" matInput placeholder="Login">
+      </mat-form-field>
+
+      <mat-form-field class="col-8">
+        <input [formControlName]="'password'" matInput placeholder="Password">
+      </mat-form-field>
+    </form>
+
+    <form class="mt-3 d-flex flex-column"
+          *ngIf="isRegister"
+          [formGroup]="formRegisterGroup">
+      <mat-form-field class="col-8">
+        <input [formControlName]="'email'" matInput placeholder="Email">
+      </mat-form-field>
+
+      <mat-form-field class="col-8">
+        <input [formControlName]="'first_name'" matInput placeholder="First name">
+      </mat-form-field>
+
+      <mat-form-field class="col-8">
+        <input [formControlName]="'last_name'" matInput placeholder="Last name">
       </mat-form-field>
 
       <mat-form-field class="col-8">
@@ -14,7 +35,7 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-button color="primary" (click)="test()">Sign Up</button>
+    <button mat-button color="primary" (click)="signUp()">Sign Up</button>
     <button mat-button color="primary" (click)="login()">Sign In</button>
     <button mat-button color="primary" (click)="check()">Check</button>
   </mat-card-actions>

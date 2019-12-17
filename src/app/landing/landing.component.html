@@ -5,11 +5,11 @@
           *ngIf="!isRegister"
           [formGroup]="formLoginGroup">
       <mat-form-field class="col-8">
-        <input [formControlName]="'login'" matInput placeholder="Login">
+        <input [formControlName]="'login'" matInput [placeholder]="'landing.email' | translate">
       </mat-form-field>
 
       <mat-form-field class="col-8">
-        <input [formControlName]="'password'" matInput placeholder="Password">
+        <input [formControlName]="'password'" type="password" matInput [placeholder]="'landing.password' | translate">
       </mat-form-field>
     </form>
 
@@ -17,26 +17,26 @@
           *ngIf="isRegister"
           [formGroup]="formRegisterGroup">
       <mat-form-field class="col-8">
-        <input [formControlName]="'email'" matInput placeholder="Email">
+        <input [formControlName]="'email'" matInput [placeholder]="'landing.email' | translate">
       </mat-form-field>
 
       <mat-form-field class="col-8">
-        <input [formControlName]="'first_name'" matInput placeholder="First name">
+        <input [formControlName]="'first_name'" matInput [placeholder]="'landing.first-name' | translate">
       </mat-form-field>
 
       <mat-form-field class="col-8">
-        <input [formControlName]="'last_name'" matInput placeholder="Last name">
+        <input [formControlName]="'last_name'" matInput [placeholder]="'landing.second-name' | translate">
       </mat-form-field>
 
       <mat-form-field class="col-8">
-        <input [formControlName]="'password'" matInput placeholder="Password">
+        <input [formControlName]="'password'" type="password" matInput [placeholder]="'landing.password' | translate">
       </mat-form-field>
     </form>
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-button color="primary" (click)="signUp()">Sign Up</button>
-    <button mat-button color="primary" (click)="login()">Sign In</button>
-    <button mat-button color="primary" (click)="check()">Check</button>
+    <button mat-button color="primary" (click)="changeFormToRegister()">{{(isRegister ? 'landing.finish' : 'landing.sign-up') | translate}}</button>
+    <button mat-button color="primary" *ngIf="isRegister" (click)="changeFormToLogin()">{{'landing.cancel' | translate}}</button>
+    <button mat-button color="primary" *ngIf="!isRegister" (click)="login()">{{'landing.sign-in' | translate}}</button>
   </mat-card-actions>
 </mat-card>

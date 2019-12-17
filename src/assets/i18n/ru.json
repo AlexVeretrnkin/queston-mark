@@ -1,0 +1,13 @@
+{
+  "landing": {
+    "sign-in": "Войти",
+    "sign-up": "Зарегистрироваться",
+    "email": "Email",
+    "password": "Пароль",
+    "first-name": "Имя",
+    "second-name": "Фамилия",
+    "finish": "Далле",
+    "cancel": "Отмена"
+  }
+}
+

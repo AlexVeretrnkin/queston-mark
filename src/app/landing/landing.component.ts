@@ -4,6 +4,7 @@ import {AuthService} from '../core/auth/auth.service';
 import {RegisterModel} from '../shared/models/register.model';
 import {Router} from '@angular/router';
 import {take} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-landing',
@@ -16,16 +17,34 @@ export class LandingComponent implements OnInit {
   public formLoginGroup: FormGroup;
   public formRegisterGroup: FormGroup;
 
+  public languages: any = [
+    {
+      name: 'English',
+      json: 'en'
+    },
+    {
+      name: 'Русский',
+      json: 'ru'
+    }
+  ];
+
+  public test: string = 'en';
+
+  public chosenLanguage: {name: string, json: string} = this.languages[0];
+
   public isRegister: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private translateService: TranslateService,
     private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   public ngOnInit(): void {
+    this.translateService.setDefaultLang(this.chosenLanguage.json);
+
     this.isRegister = false;
 
     this.formLoginGroup = this.formBuilder.group({
@@ -53,11 +72,21 @@ export class LandingComponent implements OnInit {
 
     this.authService.register(model)
       .pipe(take(1))
-      .subscribe();
+      .subscribe(() => this.changeFormToLogin());
   }
 
-  public signUp(): void {
+  public changeFormToRegister(): void {
+    if (this.isRegister) {
+      this.register();
+    }
+
     this.isRegister = true;
+
+    this.changeDetectorRef.detectChanges();
+  }
+
+  public changeFormToLogin(): void {
+    this.isRegister = false;
 
     this.changeDetectorRef.detectChanges();
   }

@@ -20,15 +20,15 @@ export class LandingComponent implements OnInit {
   public languages: any = [
     {
       name: 'English',
-      json: 'en'
+      json: 'en',
+      image: '/assets/flags/eng.png'
     },
     {
       name: 'Русский',
-      json: 'ru'
+      json: 'ru',
+      image: '/assets/flags/ru.png'
     }
   ];
-
-  public test: string = 'en';
 
   public chosenLanguage: {name: string, json: string} = this.languages[0];
 
@@ -83,6 +83,12 @@ export class LandingComponent implements OnInit {
     this.isRegister = true;
 
     this.changeDetectorRef.detectChanges();
+  }
+
+  public changeLanguage(lang: any): void {
+    this.chosenLanguage = lang;
+
+    this.translateService.setDefaultLang(this.chosenLanguage.json);
   }
 
   public changeFormToLogin(): void {

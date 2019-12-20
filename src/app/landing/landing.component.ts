@@ -1,10 +1,16 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../core/auth/auth.service';
-import {RegisterModel} from '../shared/models/register.model';
-import {Router} from '@angular/router';
-import {take} from 'rxjs/operators';
-import {TranslateService} from '@ngx-translate/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
+import { AuthService } from '../core/auth/auth.service';
+import { AssistantRegisterModel } from '../shared/models/assistant-register.model';
+import { RoleEnum } from '../shared/models/role.enum';
+import { RoleModel } from '../shared/models/role.model';
+import { TeacherRegisterModel } from '../shared/models/teacher-register.model';
+
+import { TranslationModel } from '../shared/models/translation.model';
+import { UserModel } from '../shared/models/userModel';
 
 @Component({
   selector: 'app-landing',
@@ -17,7 +23,9 @@ export class LandingComponent implements OnInit {
   public formLoginGroup: FormGroup;
   public formRegisterGroup: FormGroup;
 
-  public languages: any = [
+  public rolesEnum: typeof RoleEnum = RoleEnum;
+
+  public languages: TranslationModel[] = [
     {
       name: 'English',
       json: 'en',
@@ -30,7 +38,22 @@ export class LandingComponent implements OnInit {
     }
   ];
 
-  public chosenLanguage: {name: string, json: string} = this.languages[0];
+  public roles: RoleModel[] = [
+    {
+      id: RoleEnum.teacher,
+      name: 'landing.role.teacher'
+    },
+    {
+      id: RoleEnum.student,
+      name: 'landing.role.student'
+    },
+    {
+      id: RoleEnum.assistant,
+      name: 'landing.role.assistant'
+    }
+  ];
+
+  public chosenLanguage: TranslationModel = this.languages[0];
 
   public isRegister: boolean;
 
@@ -56,13 +79,29 @@ export class LandingComponent implements OnInit {
       email: ['', Validators.required],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      role: ['', Validators.required],
+      teacher: ['']
+    });
+
+    this.formRegisterGroup.get('role').valueChanges.subscribe((value: number) => {
+      if (value === this.rolesEnum.assistant) {
+        this.formRegisterGroup.get('teacher').setValidators(Validators.required);
+      } else {
+        this.formRegisterGroup.get('teacher').clearValidators();
+        this.formRegisterGroup.get('teacher').patchValue('');
+      }
     });
   }
 
   public register(): void {
-    let model: RegisterModel = new RegisterModel();
-    model = this.formRegisterGroup.getRawValue();
+    let model: TeacherRegisterModel | AssistantRegisterModel;
+
+    if (this.formRegisterGroup.get('teacher').value === '') {
+      model = new TeacherRegisterModel(new UserModel(this.formRegisterGroup.getRawValue()));
+    } else {
+      model = this.formRegisterGroup.getRawValue();
+    }
 
     console.log(model);
 
@@ -70,9 +109,22 @@ export class LandingComponent implements OnInit {
 
     this.changeDetectorRef.detectChanges();
 
-    this.authService.register(model)
-      .pipe(take(1))
-      .subscribe(() => this.changeFormToLogin());
+    switch (true) {
+      case this.formRegisterGroup.get('role').value === this.rolesEnum.teacher:
+        this.authService.registerTeacher(model)
+          .pipe(take(1))
+          .subscribe(() => this.changeFormToLogin());
+        break;
+      case this.formRegisterGroup.get('role').value === this.rolesEnum.student:
+        this.authService.registerStudent(model)
+          .pipe(take(1))
+          .subscribe(() => this.changeFormToLogin());
+        break;
+      default:
+        this.authService.registerAssistant(model)
+          .pipe(take(1))
+          .subscribe(() => this.changeFormToLogin());
+    }
   }
 
   public changeFormToRegister(): void {
@@ -81,6 +133,8 @@ export class LandingComponent implements OnInit {
     }
 
     this.isRegister = true;
+
+    this.formRegisterGroup.updateValueAndValidity();
 
     this.changeDetectorRef.detectChanges();
   }

@@ -7,6 +7,12 @@
     "first-name": "First name",
     "second-name": "Second name",
     "finish": "Finish",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "role": {
+      "title": "Role",
+      "teacher": "Teacher",
+      "student": "Student",
+      "assistant": "Assistant"
+    }
   }
 }

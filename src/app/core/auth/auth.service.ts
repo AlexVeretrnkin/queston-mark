@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { AssistantRegisterModel } from '../../shared/models/assistant-register.model';
+import { TeacherRegisterModel } from '../../shared/models/teacher-register.model';
 
-import {RegisterModel} from '../../shared/models/register.model';
+import {UserModel} from '../../shared/models/userModel';
 import {Observable} from 'rxjs';
 import {ApiUrls} from '../api-urls';
 import {TokenResultModel} from '../../shared/models/token-result.model';
@@ -15,8 +17,16 @@ export class AuthService {
   ) {
   }
 
-  public register(registerModel: RegisterModel): Observable<void> {
-    return this.httpClient.post<void>(ApiUrls.getRegisterUrl(), registerModel);
+  public registerTeacher(registerModel: TeacherRegisterModel): Observable<void> {
+    return this.httpClient.post<void>(ApiUrls.getRegisterTeacherUrl(), registerModel);
+  }
+
+  public registerStudent(registerModel: TeacherRegisterModel | AssistantRegisterModel): Observable<void> {
+    return this.httpClient.post<void>(ApiUrls.getRegisterStudentUrl(), registerModel);
+  }
+
+  public registerAssistant(registerModel: AssistantRegisterModel | TeacherRegisterModel): Observable<void> {
+    return this.httpClient.post<void>(ApiUrls.getRegisterAssistantUrl(), registerModel);
   }
 
   public login(email: string, password: string): Observable<TokenResultModel> {

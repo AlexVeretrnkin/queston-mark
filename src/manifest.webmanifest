@@ -1,6 +1,6 @@
 {
-  "name": "register-creator-front",
-  "short_name": "register-creator-front",
+  "name": "registerTeacher-creator-front",
+  "short_name": "registerTeacher-creator-front",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

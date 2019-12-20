@@ -28,6 +28,16 @@
             [formGroup]="formRegisterGroup"
       >
         <mat-form-field class="col-12">
+          <mat-label>{{'landing.role.title' | translate}}</mat-label>
+
+          <mat-select [formControlName]="'role'">
+            <mat-option *ngFor="let role of roles" [value]="role.id">
+              {{role.name | translate}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
           <input [formControlName]="'email'" matInput [placeholder]="'landing.email' | translate">
         </mat-form-field>
 
@@ -42,6 +52,10 @@
         <mat-form-field class="col-12">
           <input [formControlName]="'password'" type="password" matInput [placeholder]="'landing.password' | translate">
         </mat-form-field>
+
+        <mat-form-field class="col-12" *ngIf="formRegisterGroup.get('role').value === rolesEnum.assistant">
+          <input [formControlName]="'teacher'" matInput [placeholder]="'landing.role.teacher' | translate">
+        </mat-form-field>
       </form>
     </div>
   </mat-card-content>
@@ -50,6 +64,7 @@
     <button mat-button
             color="primary"
             (click)="changeFormToRegister()"
+            [disabled]="isRegister && formRegisterGroup.invalid"
     >{{(isRegister ? 'landing.finish' : 'landing.sign-up') | translate}}</button>
     <button mat-button
             color="primary"

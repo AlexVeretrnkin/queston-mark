@@ -7,7 +7,13 @@
     "first-name": "Имя",
     "second-name": "Фамилия",
     "finish": "Далле",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "role": {
+      "title": "Роль",
+      "teacher": "Учитель",
+      "student": "Ученик",
+      "assistant": "Асистент"
+    }
   }
 }
 

@@ -3,8 +3,16 @@ import {environment} from '../../environments/environment';
 export class ApiUrls {
   private static readonly apiRoot: string = environment.apiUrl;
 
-  public static getRegisterUrl(): string {
-    return `${this.apiRoot}auth/register/`;
+  public static getRegisterTeacherUrl(): string {
+    return `${this.apiRoot}auth/teachers/`;
+  }
+
+  public static getRegisterStudentUrl(): string {
+    return `${this.apiRoot}auth/students/`;
+  }
+
+  public static getRegisterAssistantUrl(): string {
+    return `${this.apiRoot}auth/assistants/`;
   }
 
   public static getLoginUrl(): string {

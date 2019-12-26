@@ -4,13 +4,13 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 import { AuthService } from '../core/auth/auth.service';
-import { AssistantRegisterModel } from '../shared/models/assistant-register.model';
-import { RoleEnum } from '../shared/models/role.enum';
-import { RoleModel } from '../shared/models/role.model';
-import { TeacherRegisterModel } from '../shared/models/teacher-register.model';
+import { AssistantRegisterModel } from '../shared/models/auth/assistant-register.model';
+import { RoleEnum } from '../shared/models/auth/role.enum';
+import { RoleModel } from '../shared/models/auth/role.model';
+import { TeacherRegisterModel } from '../shared/models/auth/teacher-register.model';
+import { UserModel } from '../shared/models/auth/userModel';
 
 import { TranslationModel } from '../shared/models/translation.model';
-import { UserModel } from '../shared/models/userModel';
 
 @Component({
   selector: 'app-landing',
@@ -66,6 +66,8 @@ export class LandingComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
+    this.authService.removeTokens();
+
     this.translateService.setDefaultLang(this.chosenLanguage.json);
 
     this.isRegister = false;

@@ -14,5 +14,27 @@
       "student": "Student",
       "assistant": "Assistant"
     }
+  },
+  "home": {
+    "create": "Create test",
+    "edit": "Edit test",
+    "pass": "Pass test"
+  },
+  "test": {
+    "info": "Information about test",
+    "name": "Name",
+    "category": "Category",
+    "create": "Create new test",
+    "question-create": {
+      "title": "New question",
+      "name": "Question name",
+      "text": "Text of the question",
+      "category": "Question category",
+      "subCategoryName": "Question subcategory"
+    }
+  },
+  "question": {
+    "right": "Correct",
+    "in-correct": "Incorrect"
   }
 }

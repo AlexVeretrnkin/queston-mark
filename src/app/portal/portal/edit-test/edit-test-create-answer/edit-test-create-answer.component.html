@@ -1,0 +1,32 @@
+<mat-card class="mb-4 p-0 pb-2 pt-2 d-flex flex-column align-items-center">
+  <mat-card-header class="m-0 d-flex justify-content-center">
+    <mat-card-title [class.mb-0]="answer">
+      {{order ? order : 'New answer'}}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="col-12">
+    <form class="mt-3 d-flex flex-column"
+          [formGroup]="formGroup"
+    >
+      <mat-form-field class="col-12">
+        <input [formControlName]="'text'" matInput [placeholder]="'test.name' | translate">
+      </mat-form-field>
+
+      <mat-form-field class="col-12">
+        <mat-label>Is this question correct?</mat-label>
+        <mat-select [formControlName]="'right'">
+          <mat-option *ngFor="let question of questions" [value]="question">
+            {{question | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <button class="m-auto" mat-button mat-raised-button [color]="'primary'"
+          [disabled]="formGroup.invalid"
+          (click)="create()">
+    {{answer ? 'Save' : 'Save'}}
+  </button>
+</mat-card>

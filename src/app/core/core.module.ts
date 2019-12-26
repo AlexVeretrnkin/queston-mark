@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth-guard/auth.guard';
 import {HttpClientModule} from '@angular/common/http';
+import { TestService } from './test/test.service';
 import {TokenInterceptorService} from './token-interceptor/token-interceptor.service';
 
 @NgModule({
@@ -13,7 +14,8 @@ import {TokenInterceptorService} from './token-interceptor/token-interceptor.ser
   providers: [
     AuthService,
     AuthGuard,
-    TokenInterceptorService
+    TokenInterceptorService,
+    TestService
   ]
 })
 export class CoreModule {

@@ -26,4 +26,24 @@ export class ApiUrls {
   public static getCheckUrl(): string {
     return `${this.apiRoot}auth/checkAuth/`;
   }
+
+  public static getCreateTestUrl(): string {
+    return `${this.apiRoot}test-api/tests/`;
+  }
+
+  public static getCreateCategoryUrl(): string {
+    return `${this.apiRoot}test-api/categories/`;
+  }
+
+  public static getSubCreateCategoryUrl(): string {
+    return `${this.apiRoot}test-api/sub-categories/`;
+  }
+
+  public static getQuestionsUrl(): string {
+    return `${this.apiRoot}test-api/questions/`;
+  }
+
+  public static getAnswersUrl(): string {
+    return `${this.apiRoot}test-api/answers/`;
+  }
 }

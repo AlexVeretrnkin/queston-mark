@@ -1,18 +1,21 @@
-<a class="link text-center d-flex align-items-center justify-content-center"
+<button class="link text-center d-flex align-items-center justify-content-center"
+        mat-raised-button
+        (click)="openCreateTestModal()"
+>
+  {{'home.create' | translate}}
+</button>
+
+<a class="link d-flex align-items-center justify-content-center"
    mat-raised-button
    [href]="'create-test'"
-   [routerLink]="'create-test'">
-  Create test
+   [routerLink]="'create-test'"
+>
+  {{'home.edit' | translate}}
 </a>
 
 <a class="link d-flex align-items-center justify-content-center"
    mat-raised-button
-   routerLink=".">
-  Edit test
-</a>
-
-<a class="link d-flex align-items-center justify-content-center"
-   mat-raised-button
-   routerLink=".">
-  Pass test
+   routerLink="."
+>
+  {{'home.pass' | translate}}
 </a>

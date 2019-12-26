@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { AssistantRegisterModel } from '../../shared/models/assistant-register.model';
-import { TeacherRegisterModel } from '../../shared/models/teacher-register.model';
 
-import {UserModel} from '../../shared/models/userModel';
 import {Observable} from 'rxjs';
+import { AssistantRegisterModel } from '../../shared/models/auth/assistant-register.model';
+import { TeacherRegisterModel } from '../../shared/models/auth/teacher-register.model';
+import { TokenResultModel } from '../../shared/models/auth/token-result.model';
 import {ApiUrls} from '../api-urls';
-import {TokenResultModel} from '../../shared/models/token-result.model';
 import {map, tap} from 'rxjs/operators';
 
 @Injectable()

@@ -36,5 +36,11 @@
   "question": {
     "right": "Correct",
     "in-correct": "Incorrect"
+  },
+  "navbar" : {
+    "profile": "Profile",
+    "test": "Tests",
+    "dashboard": "Dashboard",
+    "random": "Nothing for today"
   }
 }

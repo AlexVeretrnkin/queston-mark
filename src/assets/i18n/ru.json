@@ -36,6 +36,11 @@
   "question": {
     "right": "Правильный",
     "in-correct": "Неправильный"
+  },
+  "navbar" : {
+    "profile": "Профиль",
+    "test": "Tests",
+    "random": "Nothing for today"
   }
 }
 

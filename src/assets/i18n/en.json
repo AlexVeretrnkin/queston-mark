@@ -55,5 +55,8 @@
     "email": "Email",
     "sex": "Sex",
     "avatar": "Profile picture"
+  },
+  "dashboard" : {
+    "title": "Dashboard"
   }
 }

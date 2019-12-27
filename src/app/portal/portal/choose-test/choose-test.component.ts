@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { fromPromise } from 'rxjs/internal-compatibility';
+import { catchError, switchMap } from 'rxjs/operators';
 
 import { TestService } from '../../../core/test/test.service';
 import { TestModel } from '../../../shared/models/test/test.model';
@@ -16,11 +19,20 @@ export class ChooseTestComponent implements OnInit {
 
   constructor(
     private testService: TestService,
-    private changeDetectorRef: ChangeDetectorRef
+    private router: Router
   ) {}
 
   public ngOnInit(): void {
     this.tests$ = this.testService.getTests();
+  }
+
+  public startPassingTest(test: TestModel): void {
+    this.testService.startPassingTest(test.id)
+      .pipe(
+        switchMap(() => fromPromise(this.router.navigate([`/portal/pass/${test.id}`]))),
+        catchError(() => fromPromise(this.router.navigate([`/portal/pass/${test.id}`])))
+      )
+      .subscribe();
   }
 
 }

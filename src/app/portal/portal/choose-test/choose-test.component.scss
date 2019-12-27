@@ -1,13 +1,11 @@
 :host {
   display: flex;
-
-  flex-wrap: wrap;
-
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
 }
 
 .test {
-  width: 300px;
+  width: 250px;
 
   cursor: pointer;
 
@@ -17,5 +15,9 @@
     background: #a4508b;
 
     color: white;
+
+    mat-card-subtitle {
+      color: white;
+    }
   }
 }

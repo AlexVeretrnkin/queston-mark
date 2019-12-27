@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserModel } from '../../shared/models/auth/userModel';
 import { AnswerModel } from '../../shared/models/test/answer.model';
 import { CategoryModel } from '../../shared/models/test/category.model';
 import { QuestionModel } from '../../shared/models/test/question.model';
@@ -13,7 +14,10 @@ export class TestService {
 
   constructor(
     private httpClient: HttpClient
-  ) {
+  ) {}
+
+  public getStudents(): Observable<UserModel[]> {
+    return this.httpClient.get<UserModel[]>(ApiUrls.getRegisterStudentUrl());
   }
 
   public createTest(test: TestModel): Observable<void> {
@@ -94,5 +98,42 @@ export class TestService {
         sort_by_position: '1'
       }
     });
+  }
+
+  public createPermission(testId: number, studentEmail: string): Observable<void> {
+    return this.httpClient.post<void>(ApiUrls.getPermissionUrl(), {
+      test: testId,
+      student: studentEmail
+    });
+  }
+
+  public startPassingTest(testId: number): Observable<any> {
+    return this.httpClient.post<void>(ApiUrls.getStartPassTestUrl(), {
+      test: testId
+    });
+  }
+
+  public solveQuestion(testId: number, questionId: number): Observable<void> {
+    return this.httpClient.post<void>(ApiUrls.getSolvedQuestionsUrl(), {
+      solved_test: testId,
+      question: questionId
+    });
+  }
+
+  public solveAnswer(questionId: number, answerId: number): Observable<void> {
+    return this.httpClient.post<void>(ApiUrls.getSolvedAnswersUrl(), {
+      solved_question: questionId,
+      answer: answerId
+    });
+  }
+
+  public finishTest(testId: number): Observable<void> {
+    return this.httpClient.post<void>(ApiUrls.getFinishTestUrl(), {
+      solved_test: testId,
+    });
+  }
+
+  public getRole(): Observable<string> {
+    return this.httpClient.get<string>(ApiUrls.getRoleUrl());
   }
 }

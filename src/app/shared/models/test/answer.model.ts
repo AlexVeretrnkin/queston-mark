@@ -4,4 +4,5 @@ export class AnswerModel {
   public is_right: boolean;
   public text: string;
   public question: number;
+  public userAnswer?: boolean;
 }

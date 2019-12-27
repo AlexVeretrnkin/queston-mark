@@ -31,10 +31,42 @@
 }
 
 .navbar-wrapper {
+  max-width: 900px;
   width: 60%;
   display: flex;
   align-items: center; /* align vertical */
   flex-direction: row;
+}
+
+.header {
+  font-size: 48px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #000000;
+}
+
+.subheader {
+  height: 28px;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.29px;
+  color: #8d99c9;
+}
+
+.label {
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.22px;
+  color: #000000;
 }
 
 .avatar {
@@ -45,11 +77,6 @@
   background-color: #ffffff;
 }
 
-.profile {
-  border-radius: 40px;
-  background-color: #ffffff;
-  width: 100%;
-}
 
 .settings {
   width: 60px;
@@ -79,6 +106,7 @@
 }
 
 :host {
+  font-family: Roboto;
   padding-top: 50px;
   display: block;
   width: 100%;
@@ -88,5 +116,13 @@
 }
 
 .wrapper {
-  max-width: 940px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.profile {
+  margin-top: 40px;
+  padding: 40px;
+  border-radius: 40px;
+  background-color: #ffffff;
 }

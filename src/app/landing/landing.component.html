@@ -12,8 +12,7 @@
     <div class="col-8 m-0 p-0">
       <form class="mt-3 d-flex flex-column"
             *ngIf="!isRegister"
-            [formGroup]="formLoginGroup"
-      >
+            [formGroup]="formLoginGroup">
         <mat-form-field class="col-12">
           <input [formControlName]="'login'" matInput [placeholder]="'landing.email' | translate">
         </mat-form-field>

@@ -42,5 +42,17 @@
     "test": "Tests",
     "dashboard": "Dashboard",
     "random": "Nothing for today"
+  },
+  "profile" : {
+    "title": "Profile",
+    "credentials": "Credentials",
+    "permissions": "Permissions",
+    "general": "General",
+    "firstName": "Name",
+    "lastName": "Surname",
+    "role": "Role",
+    "email": "Email",
+    "sex": "Sex",
+    "avatar": "Profile picture"
   }
 }

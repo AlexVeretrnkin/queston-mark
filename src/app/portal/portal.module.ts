@@ -67,6 +67,9 @@ import { PassTestComponent } from './portal/pass-test/pass-test.component';
       FormsModule,
       MatCheckboxModule
     ],
+    exports: [
+      NavbarComponent
+    ],
     entryComponents: [
       EditTestCreateSubcategoryComponent,
       StudentPermissionEmailComponent

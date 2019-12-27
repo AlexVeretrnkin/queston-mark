@@ -6,6 +6,7 @@ import { EditTestComponent } from './portal/edit-test/edit-test.component';
 import { HomeComponent } from './portal/home/home.component';
 
 import { PortalComponent } from './portal/portal.component';
+import { ProfileComponent } from './portal/profile/profile.component';
 import { StudentPermissionComponent } from './portal/student-permission/student-permission.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
       {path: 'create-test', component: EditTestComponent},
       {path: 'choose-test', component: ChooseTestComponent},
       {path: 'student-permission', component: StudentPermissionComponent},
+      {path: 'profile', component: ProfileComponent},
       {path: '**', redirectTo: ''}
     ]
   }

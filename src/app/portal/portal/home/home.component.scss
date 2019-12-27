@@ -11,6 +11,8 @@
   align-items: center;
 
   padding: 100px;
+
+  position: relative;
 }
 
 .link {
@@ -23,4 +25,15 @@
 
 button {
   outline: none;
+}
+
+.user {
+  top: 50px;
+  right: 100px;
+
+  cursor: pointer;
+
+  &_icon {
+    font-size: 50px;
+  }
 }

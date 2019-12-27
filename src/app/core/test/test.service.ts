@@ -31,7 +31,11 @@ export class TestService {
   }
 
   public getTests(): Observable<TestModel[]> {
-    return this.httpClient.get<TestModel[]>(ApiUrls.getCreateTestUrl());
+    return this.httpClient.get<TestModel[]>(ApiUrls.getCreateTestUrl(), {
+      params: {
+        individual: '1'
+      }
+    });
   }
 
   public getQuestionsByTest(testId: number): Observable<any> {

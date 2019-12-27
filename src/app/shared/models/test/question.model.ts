@@ -4,4 +4,14 @@ export class QuestionModel {
   public text: string;
   public category: string;
   public test: number;
+  public position: number;
+
+  constructor() {
+    this.id = null;
+    this.name = '';
+    this.text = '';
+    this.category = '';
+    this.test = null;
+    this.position = null;
+  }
 }

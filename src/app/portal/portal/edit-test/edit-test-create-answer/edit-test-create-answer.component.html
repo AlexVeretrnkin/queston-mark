@@ -17,7 +17,7 @@
         <mat-label>Is this question correct?</mat-label>
         <mat-select [formControlName]="'right'">
           <mat-option *ngFor="let question of questions" [value]="question">
-            {{question | translate}}
+            {{question.name | translate}}
           </mat-option>
         </mat-select>
       </mat-form-field>

@@ -28,7 +28,7 @@ mat-grid-tile {
 }
 
 .example-container {
-  z-index: 100;
+  z-index: 0;
 
   width: 90%;
   max-width: 100%;
@@ -80,6 +80,14 @@ mat-grid-tile {
 .edit {
   background: rgba(#5f0a87, .8);
 
+  display: none;
+
+  &_active {
+    display: flex;
+  }
+}
+
+.create {
   display: none;
 
   &_active {

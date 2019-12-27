@@ -1,5 +1,6 @@
 export class AnswerModel {
-  public id?: string;
+  public id?: number;
+  public position?: number;
   public is_right: boolean;
   public text: string;
   public question: number;

@@ -16,7 +16,16 @@ export class EditTestCreateAnswerComponent implements OnInit {
 
   public formGroup: FormGroup;
 
-  public questions: string[] = ['question.right', 'question.in-correct'];
+  public questions: { name: string, correct: boolean }[] = [
+    {
+      name: 'question.right',
+      correct: true
+    },
+    {
+      name: 'question.in-correct',
+      correct: false
+    }
+  ];
 
   constructor(
     private formBuilder: FormBuilder
@@ -30,18 +39,24 @@ export class EditTestCreateAnswerComponent implements OnInit {
         right: ['', Validators.required]
       });
 
-    this.formGroup.patchValue(
-      {
-        text: this.answer.text ? this.answer.text : '',
-        right: this.answer.is_right ? this.questions[0] : this.questions[1]
-  });
+    if (this.answer) {
+      this.formGroup.patchValue(
+        {
+          text: this.answer.text ? this.answer.text : '',
+          right: this.answer.is_right ? this.questions[0] : this.questions[1]
+        });
+    }
 
     console.log(this.answer);
     console.log(this.formGroup.getRawValue());
   }
 
   public create(): void {
-    this.answerCreated.emit(this.formGroup.getRawValue());
+    const answer: AnswerModel = new AnswerModel();
+    answer.text = this.formGroup.get('text').value;
+    answer.is_right = this.formGroup.get('right').value.correct;
+
+    this.answerCreated.emit(answer);
   }
 
 }

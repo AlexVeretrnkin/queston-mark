@@ -17,16 +17,16 @@
         </ng-container>
       </mat-list>
 
-      <div class="edit w-100 h-100 position-absolute delete_active align-items-center justify-content-center"
+      <div class="edit edit_active w-100 h-100 position-absolute delete_active align-items-center justify-content-center"
            [class.edit_active]="isQuestionToDelete"
       >
         <div
             cdkDropList
-            #test2="cdkDropList"
+            #editList="cdkDropList"
             [cdkDropListData]="questionsToEdit"
-            [cdkDropListConnectedTo]="[test1]"
+            [cdkDropListConnectedTo]="[questionsDropList, answersList]"
             class="h-100 w-100 position-absolute"
-            (cdkDropListDropped)="editQuestion($event)"
+            (cdkDropListDropped)="edit($event)"
         >
         </div>
         <mat-icon class="icon icon_edit" aria-hidden="false" aria-label="delete">edit</mat-icon>
@@ -34,8 +34,10 @@
     </div>
   </mat-grid-tile>
   <mat-grid-tile colspan="2">
-    <div class="d-flex flex-column align-items-center align-self-start w-100">
-      <h2 class="heading heading_questions">
+    <div class="position-relative d-flex flex-column align-items-center align-self-start w-100 h-100">
+      <h2 class="heading heading_questions"
+          *ngIf="testState === testStateEnum.none"
+      >
         Questions
       </h2>
 
@@ -44,11 +46,11 @@
       >
         <div
             cdkDropList
-            #test1="cdkDropList"
+            #questionsDropList="cdkDropList"
             [cdkDropListData]="quest"
-            [cdkDropListConnectedTo]="test2"
+            [cdkDropListConnectedTo]="[editList, test2]"
             class="example-list"
-            (cdkDropListDropped)="editQuestion($event)"
+            (cdkDropListDropped)="edit($event)"
         >
           <div class="example-box"
                cdkDrag
@@ -66,14 +68,25 @@
       <div class="example-container mt-5"
            *ngIf="testState === testStateEnum.none && questionAnswers$ | async as answers"
       >
+        <h2 class="heading heading_questions">
+          Answers
+        </h2>
+
         <div
             *ngIf="answers.length > 0"
             cdkDropList
+            #answersList="cdkDropList"
+            [cdkDropListConnectedTo]="[test2, editList]"
             [cdkDropListData]="answers"
             class="example-list"
             (cdkDropListDropped)="drop($event)"
         >
-          <div class="example-box" *ngFor="let item of answers; let i = index" cdkDrag>
+          <div class="example-box"
+               cdkDrag
+               (cdkDragStarted)="showControls()"
+               (cdkDragEnded)="hideControls()"
+               *ngFor="let item of answers; let i = index"
+          >
             {{(i + 1) + '. ' + item.text}}
           </div>
         </div>
@@ -89,7 +102,7 @@
         <mat-card class="mb-4 mt-5 w-75">
           <mat-card-header class="m-0 d-flex justify-content-center">
             <mat-card-title>
-              {{'test.question-create.title' | translate}}
+              {{testState === testStateEnum.questionToEdit ? 'Edit question' : 'test.question-create.title' | translate}}
             </mat-card-title>
           </mat-card-header>
 
@@ -139,9 +152,100 @@
             *ngFor="let answer of activeAnswers; let i = index"
             [answer]="answer"
             [order]="i + 1"
-            (answerCreated)="createAnswer($event)"
+            (answerCreated)="createAnswer($event, answer)"
         >
         </app-edit-test-create-answer>
+      </div>
+
+      <div class="create position-absolute h-100 w-100 flex-column align-items-center"
+           [class.create_active]="testState === testStateEnum.questionToCreate"
+      >
+        <div class="example-container mt-5">
+          <h3>Question</h3>
+          <div
+              cdkDropList
+              #questionCreate="cdkDropList"
+              [cdkDropListData]="createdQuestions"
+              [cdkDropListConnectedTo]="[createList]"
+              class="example-list"
+              (cdkDropListDropped)="createQuestionDrag($event)"
+          >
+            <div class="example-box d-flex align-items-center justify-content-center"
+                 *ngFor="let item of createdQuestions" cdkDrag
+            >
+              <mat-card class="mb-4 mt-5 w-75">
+                <mat-card-header class="m-0 d-flex justify-content-center">
+                  <mat-card-title>
+                    {{'test.question-create.title' | translate}}
+                  </mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+                  <form class="mt-3 d-flex flex-column"
+                        [formGroup]="createQuestionForm"
+                  >
+                    <mat-form-field class="col-12">
+                      <input [formControlName]="'name'"
+                             matInput [placeholder]="'test.question-create.name' | translate"
+                      >
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                      <input [formControlName]="'text'"
+                             matInput [placeholder]="'test.question-create.text' | translate"
+                      >
+                    </mat-form-field>
+
+                    <mat-form-field class="col-12">
+                      <input [formControlName]="'subCategoryName'"
+                             matInput
+                             [placeholder]="'test.question-create.subCategoryName' | translate"
+                             [matAutocomplete]="auto"
+                      >
+
+                      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of subCategories" [value]="option">
+                          {{option?.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </form>
+                </mat-card-content>
+
+                <mat-card-actions class="d-flex justify-content-center">
+                  <button mat-button mat-raised-button [color]="'primary'"
+                          (click)="createQuestion()"
+                          [disabled]="createQuestionForm.invalid || !activeTest ||
+                          createQuestionForm.get('name').value === activeQuestion.name"
+                  >
+                    Create
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-container mt-5">
+          <h3>Answers for this question</h3>
+          <div
+              cdkDropList
+              #answerCreate="cdkDropList"
+              [cdkDropListData]="createdAnswers"
+              [cdkDropListConnectedTo]="[createList]"
+              class="example-list"
+              (cdkDropListDropped)="createAnswerDrag($event)"
+          >
+            <div class="example-box d-flex align-items-center justify-content-center"
+                 *ngFor="let item of createdAnswers" cdkDrag
+            >
+              <app-edit-test-create-answer
+                  (answerCreated)="createAnswer($event)"
+              >
+              </app-edit-test-create-answer>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </mat-grid-tile>
@@ -154,19 +258,36 @@
       <div class="example-container">
         <div
             cdkDropList
-            #doneList="cdkDropList"
+            #createList="cdkDropList"
             [cdkDropListData]="done"
-            [cdkDropListConnectedTo]="[todoList]"
+            [cdkDropListConnectedTo]="[questionCreate, answerCreate]"
             class="example-list"
-            (cdkDropListDropped)="editQuestion($event)"
+            (cdkDropListDropped)="dragCreate($event)"
         >
-          <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+          <div class="example-box"
+               cdkDrag
+               (cdkDragStarted)="showControls(testStateEnum.questionToCreate)"
+               *ngFor="let item of done"
+          >
+            {{item}}
+            <mat-icon aria-hidden="false" aria-label="delete">add_circle</mat-icon>
+          </div>
         </div>
       </div>
 
       <div class="delete position-absolute delete_active align-items-center justify-content-center w-100 h-100"
            [class.delete_active]="isQuestionToDelete"
       >
+        <div
+            cdkDropList
+            #test2="cdkDropList"
+            [cdkDropListData]="questionsToEdit"
+            [cdkDropListConnectedTo]="[questionsDropList, answersList]"
+            class="h-100 w-100 position-absolute"
+            (cdkDropListDropped)="delete($event)"
+        >
+        </div>
+
         <mat-icon class="icon" aria-hidden="false" aria-label="delete">delete</mat-icon>
       </div>
     </div>

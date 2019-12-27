@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -50,21 +50,13 @@ export class EditTestComponent implements OnInit {
   ) {
   }
 
-  public todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
-
   public done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
+    'New question',
+    'New answer'
   ];
 
+  public createdQuestions: string[] = [];
+  public createdAnswers: string[] = [];
   public questionsToEdit: QuestionModel[] = [];
 
   public ngOnInit(): void {
@@ -97,7 +89,7 @@ export class EditTestComponent implements OnInit {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 
-  public editQuestion(event: CdkDragDrop<any>) {
+  public edit(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -121,6 +113,63 @@ export class EditTestComponent implements OnInit {
     }
   }
 
+  public dragCreate(event: CdkDragDrop<any>): void {
+    if (Object.keys(event.container.data[0]).toString() === Object.keys(new QuestionModel()).toString()) {
+      this.createQuestionDrag(event);
+    } else {
+      this.createAnswerDrag(event);
+    }
+  }
+
+  public createQuestionDrag(event: CdkDragDrop<any>): void {
+    if (event.previousContainer === event.container || this.createdQuestions.length > 0) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+
+      console.log(this.createdQuestions);
+    }
+  }
+
+  public createAnswerDrag(event: CdkDragDrop<any>): void {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      copyArrayItem(event.previousContainer.data,
+                    event.container.data,
+                    event.previousIndex,
+                    event.currentIndex);
+    }
+  }
+
+  public delete(event: CdkDragDrop<any>): void {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+
+      if (Object.keys(event.container.data[0]).toString() === Object.keys(new QuestionModel()).toString()) {
+        this.testQuestions$ = this.testService.deleteQuestion(event.container.data[0].id)
+          .pipe(
+            switchMap(() => this.testService.getQuestionsByTest(this.activeTest.id))
+          );
+      } else {
+        console.log(event.container.data[0]);
+
+        this.questionAnswers$ = this.testService.deleteAnswerForQuestion(event.container.data[0])
+          .pipe(
+            switchMap(() => this.testService.getAnswerForQuestion(this.activeQuestion.id))
+          );
+      }
+    }
+  }
+
   public changeFormsForEdit(): void {
     this.createQuestionForm.patchValue(
       {
@@ -132,22 +181,28 @@ export class EditTestComponent implements OnInit {
     console.log(this.createQuestionForm.get('subCategoryName').value);
   }
 
-  public showControls(): void {
-    this.isQuestionToDelete = true;
+  public showControls(state?: TestStateEnum): void {
+    if (!state) {
+      this.isQuestionToDelete = true;
 
-    this.changeDetectorRef.detectChanges();
+      this.changeDetectorRef.detectChanges();
+    } else {
+      this.changeState(state);
+    }
   }
 
   public hideControls(): void {
     this.isQuestionToDelete = false;
 
-    this.changeDetectorRef.detectChanges();
+    this.changeState(this.testStateEnum.none);
   }
 
   public getQuestions(test: TestModel): void {
     this.activeTest = test;
 
-    console.log(this.testState);
+    this.done = [...this.createdQuestions, ...this.done];
+    this.createdQuestions = [];
+    this.createdAnswers = [];
 
     this.testQuestions$ = this.testService.getQuestionsByTest(this.activeTest.id);
 
@@ -169,8 +224,7 @@ export class EditTestComponent implements OnInit {
     this.activeQuestion.test = this.activeTest.id;
 
     if (this.isSubcategoryExist) {
-      this.testService.createNewQuestion(this.activeQuestion)
-        .subscribe((result: QuestionModel) => this.activeQuestion.id = result.id);
+      this.handleQuestionEditAction();
     } else {
 
       const modalRef: MatDialogRef<EditTestCreateSubcategoryComponent> =
@@ -190,13 +244,16 @@ export class EditTestComponent implements OnInit {
     }
   }
 
-  public createAnswer(answer: AnswerModel): void {
-    const newAnswer: AnswerModel = answer;
+  public createAnswer(formAnswer: AnswerModel, answer?: AnswerModel): void {
+    const newAnswer: AnswerModel = formAnswer;
     newAnswer.question = this.activeQuestion.id;
 
-    console.log(newAnswer);
+    if (answer) {
+      newAnswer.id = answer.id;
+      newAnswer.question = answer.question;
+    }
 
-    this.testService.createAnswerForQuestion(newAnswer).subscribe(x => console.log(x));
+    this.handleAnswerEditAction(newAnswer);
   }
 
   public getQuestionAnswers(question: QuestionModel): void {
@@ -212,5 +269,32 @@ export class EditTestComponent implements OnInit {
     this.testState = state;
 
     this.changeDetectorRef.detectChanges();
+  }
+
+  private handleQuestionEditAction(): void {
+    if (!this.activeQuestion.id || this.testState === this.testStateEnum.questionToCreate) {
+      this.activeQuestion.id = null;
+      this.activeQuestion.position = 1;
+
+      this.testService.createNewQuestion(this.activeQuestion)
+        .subscribe((result: QuestionModel) => {
+          this.activeQuestion.id = result.id;
+        });
+    } else {
+      console.log('up');
+
+      this.testService.updateQuestion(this.activeQuestion)
+        .subscribe((result: QuestionModel) => this.activeQuestion = result);
+    }
+  }
+
+  private handleAnswerEditAction(answer: AnswerModel): void {
+    if (!answer.id) {
+      this.testService.createAnswerForQuestion(answer).subscribe();
+    } else {
+      console.log(answer);
+
+      this.testService.updateAnswerForQuestion(answer).subscribe();
+    }
   }
 }

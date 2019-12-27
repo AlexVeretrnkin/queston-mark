@@ -43,7 +43,15 @@ export class ApiUrls {
     return `${this.apiRoot}test-api/questions/`;
   }
 
+  public static getQuestionUpdateUrl(id: string): string {
+    return `${this.apiRoot}test-api/questions/${id}/`;
+  }
+
   public static getAnswersUrl(): string {
     return `${this.apiRoot}test-api/answers/`;
+  }
+
+  public static getAnswerUpdateUrl(id: string): string {
+    return `${this.apiRoot}test-api/answers/${id}/`;
   }
 }

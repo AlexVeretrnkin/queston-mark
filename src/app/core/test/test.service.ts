@@ -47,15 +47,14 @@ export class TestService {
   }
 
   public updateQuestion(question: QuestionModel): Observable<QuestionModel> {
-    return this.httpClient.put<QuestionModel>(ApiUrls.getQuestionsUrl(), question);
+    return this.httpClient.put<QuestionModel>(ApiUrls.getQuestionUpdateUrl(question.id.toString()), {
+      ...question,
+      id: null
+    });
   }
 
   public deleteQuestion(id: number): Observable<QuestionModel> {
-    return this.httpClient.delete<QuestionModel>(ApiUrls.getQuestionsUrl(), {
-      params: {
-        question_id: id.toString()
-      }
-    });
+    return this.httpClient.delete<QuestionModel>(ApiUrls.getQuestionUpdateUrl(id.toString()));
   }
 
   public createSubcategory(subCategory: SubCategoryModel): Observable<SubCategoryModel> {
@@ -71,7 +70,16 @@ export class TestService {
   }
 
   public updateAnswerForQuestion(answer: AnswerModel): Observable<AnswerModel> {
-    return this.httpClient.put<AnswerModel>(ApiUrls.getAnswersUrl(), answer);
+    return this.httpClient.put<AnswerModel>(ApiUrls.getAnswerUpdateUrl(answer.id.toString()), {
+                                              ...answer,
+                                              id: null,
+                                              position: answer.position
+                                            }
+    );
+  }
+
+  public deleteAnswerForQuestion(answer: AnswerModel): Observable<AnswerModel> {
+    return this.httpClient.delete<AnswerModel>(ApiUrls.getAnswerUpdateUrl(answer.id.toString()));
   }
 
   public getAnswerForQuestion(id: number): Observable<AnswerModel[]> {

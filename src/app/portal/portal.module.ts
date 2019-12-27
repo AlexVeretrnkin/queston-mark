@@ -27,6 +27,7 @@ import { EditTestCreateAnswerComponent } from './portal/edit-test/edit-test-crea
 import { ChooseTestComponent } from './portal/choose-test/choose-test.component';
 import { StudentPermissionComponent } from './portal/student-permission/student-permission.component';
 import { ProfileComponent } from './portal/profile/profile.component';
+import {NavbarComponent} from '../shared/components/navbar/navbar.component';
 
 @NgModule(
   {
@@ -38,7 +39,8 @@ import { ProfileComponent } from './portal/profile/profile.component';
       EditTestCreateAnswerComponent,
       ChooseTestComponent,
       StudentPermissionComponent,
-      ProfileComponent
+      ProfileComponent,
+      NavbarComponent
     ],
     imports: [
       CommonModule,

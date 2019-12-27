@@ -10,7 +10,7 @@ export class ProfileComponent implements OnInit {
 
   public profileFormGroup: FormGroup;
   public credentialsFormGroup: FormGroup;
-
+  public permissionsFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
   ) {
@@ -21,6 +21,10 @@ export class ProfileComponent implements OnInit {
 
     this.credentialsFormGroup = this.formBuilder.group({
       email: ['', Validators.required],
+    });
+
+    this.permissionsFormGroup = this.formBuilder.group({
+      role: ['', Validators.required],
     });
   }
 

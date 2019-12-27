@@ -1,35 +1,5 @@
-<div class="navbar">
+<app-navbar></app-navbar>
 
-  <div class="logo"
-       [routerLink]="''">
-    <img src="assets/icons/logo.svg">
-  </div>
-
-  <div class="navbar-wrapper">
-    <div class="avatar"
-         [routerLink]="'profile'">
-      <img src="assets/icons/user.svg">
-    </div>
-    <div class="button-spacer"></div>
-    <div class="button"
-         [routerLink]="'platform'">
-      {{'navbar.dashboard' | translate}}
-    </div>
-    <div class="button-spacer"></div>
-    <div class="button"
-         [routerLink]="'choose-test'">
-      {{'navbar.test' | translate}}
-    </div>
-    <div class="button-spacer"></div>
-    <div class="navbar-breadcrumb">
-      {{'navbar.random' | translate}}
-    </div>
-  </div>
-
-  <div class="settings">
-    <img src="assets/icons/settings.svg">
-  </div>
-</div>
 
 <div class="wrapper">
   <div class="profile">
@@ -72,7 +42,7 @@
       </h2>
 
       <form class="mt-3 d-flex flex-column"
-            [formGroup]="credentialsFormGroup">
+            [formGroup]="permissionsFormGroup">
         <mat-form-field class="col-12">
           <input [formControlName]="'role'" matInput  [placeholder]="'profile.role' | translate" disabled>
         </mat-form-field>

@@ -216,7 +216,7 @@
                   <button mat-button mat-raised-button [color]="'primary'"
                           (click)="createQuestion()"
                           [disabled]="createQuestionForm.invalid || !activeTest ||
-                          createQuestionForm.get('name').value === activeQuestion.name"
+                          createQuestionForm.get('name')?.value === activeQuestion?.name"
                   >
                     Create
                   </button>

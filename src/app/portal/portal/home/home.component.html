@@ -15,7 +15,16 @@
 
 <a class="link d-flex align-items-center justify-content-center"
    mat-raised-button
-   routerLink="."
+   [href]="'choose-test'"
+   [routerLink]="'choose-test'"
 >
   {{'home.pass' | translate}}
+</a>
+
+<a class="link d-flex align-items-center justify-content-center"
+   mat-raised-button
+   [href]="'student-permission'"
+   [routerLink]="'student-permission'"
+>
+  Student permission
 </a>

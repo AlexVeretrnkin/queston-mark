@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: space-around;
+}
+
+.test {
+  width: 300px;
+
+  cursor: pointer;
+
+  transition: .3;
+
+  &:hover {
+    background: #a4508b;
+
+    color: white;
+  }
+}

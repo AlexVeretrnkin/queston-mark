@@ -1,0 +1,11 @@
+<mat-card class="test mt-5 mb-3"
+          *ngFor="let test of tests$ | async">
+  <mat-card-header>
+    <mat-card-title>{{test.name}}</mat-card-title>
+    <mat-card-subtitle>{{test.category}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    {{test.information}}
+  </mat-card-content>
+</mat-card>

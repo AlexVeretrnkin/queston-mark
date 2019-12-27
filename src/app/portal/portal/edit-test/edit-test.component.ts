@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap, take, tap } from 'rxjs/operators';
 import { TestService } from '../../../core/test/test.service';
 import { AnswerModel } from '../../../shared/models/test/answer.model';
 import { QuestionModel } from '../../../shared/models/test/question.model';
@@ -92,10 +92,7 @@ export class EditTestComponent implements OnInit {
       const answer: AnswerModel = event.container.data[0];
       answer.position = event.currentIndex;
 
-      this.questionAnswers$ = this.testService.updateAnswerForQuestion(answer)
-        .pipe(
-          switchMap(() => this.testService.getAnswerForQuestion(this.activeQuestion.id))
-        );
+      this.testService.updateAnswerForQuestion(answer).subscribe();
     }
   }
 
@@ -108,13 +105,11 @@ export class EditTestComponent implements OnInit {
         const quest: QuestionModel = event.container.data[0];
         quest.position = event.currentIndex > 1 ? event.currentIndex + 1 : 1;
 
-        console.log(quest, '--', event.currentIndex);
-
-        this.testQuestions$ = this.testService.updateQuestion(quest)
+        this.testService.updateQuestion(quest)
           .pipe(
-            switchMap(() => this.testService.getQuestionsByTest(this.activeTest.id)),
-            tap(x => console.log(x))
-          );
+            take(1)
+          )
+          .subscribe();
       }
     } else {
       transferArrayItem(event.previousContainer.data,
@@ -246,6 +241,8 @@ export class EditTestComponent implements OnInit {
   }
 
   public createQuestion(): void {
+    this.activeQuestion = new QuestionModel();
+
     this.activeQuestion.name = this.createQuestionForm.get('name').value;
     this.activeQuestion.text = this.createQuestionForm.get('text').value;
     this.activeQuestion.category = this.createQuestionForm.get('subCategoryName').value.id;
@@ -331,7 +328,11 @@ export class EditTestComponent implements OnInit {
     } else {
       console.log(answer);
 
-      this.testService.updateAnswerForQuestion(answer).subscribe();
+      this.testService.updateAnswerForQuestion(answer)
+        .pipe(
+          take(1)
+        )
+        .subscribe();
     }
   }
 }

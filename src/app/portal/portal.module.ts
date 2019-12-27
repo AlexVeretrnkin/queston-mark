@@ -24,6 +24,8 @@ import { PortalComponent } from './portal/portal.component';
 import { EditTestComponent } from './portal/edit-test/edit-test.component';
 import { EditTestCreateSubcategoryComponent } from './portal/edit-test/edit-test-create-subcategory/edit-test-create-subcategory.component';
 import { EditTestCreateAnswerComponent } from './portal/edit-test/edit-test-create-answer/edit-test-create-answer.component';
+import { ChooseTestComponent } from './portal/choose-test/choose-test.component';
+import { StudentPermissionComponent } from './portal/student-permission/student-permission.component';
 
 @NgModule(
   {
@@ -32,7 +34,9 @@ import { EditTestCreateAnswerComponent } from './portal/edit-test/edit-test-crea
       HomeComponent,
       EditTestComponent,
       EditTestCreateSubcategoryComponent,
-      EditTestCreateAnswerComponent
+      EditTestCreateAnswerComponent,
+      ChooseTestComponent,
+      StudentPermissionComponent
     ],
     imports: [
       CommonModule,

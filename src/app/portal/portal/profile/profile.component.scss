@@ -21,22 +21,7 @@
   width: 20px;
 }
 
-.navbar {
-  padding: 0 5%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between; /* align horizontal */
-  align-items: center; /* align vertical */
-  flex-direction: row;
-}
 
-.navbar-wrapper {
-  max-width: 900px;
-  width: 60%;
-  display: flex;
-  align-items: center; /* align vertical */
-  flex-direction: row;
-}
 
 .header {
   font-size: 48px;
@@ -80,14 +65,4 @@
   background: linear-gradient(38deg, rgba(132,79,157,1) 0%, rgba(40,113,255,1) 100%);
 }
 
-.wrapper {
-  max-width: 900px;
-  margin: auto;
-}
 
-.profile {
-  margin-top: 40px;
-  padding: 40px;
-  border-radius: 40px;
-  background-color: #ffffff;
-}

@@ -1,75 +1,74 @@
-<div class="language-container position-absolute d-flex justify-content-between align-items-center">
-  <img class="language-image" alt=""
-       *ngFor="let lang of languages"
-       (click)="changeLanguage(lang)"
-       [src]="lang.image"
-       [class.language-image_active]="chosenLanguage.json === lang.json">
+<app-navbar displayLanguageSelect></app-navbar>
+
+<div class="wrapper">
+  <div class="qm-card" style="margin-top: 50px; max-width: 500px">
+    <h1 class="header">{{"landing.sign-in" | translate}}</h1>
+    <mat-card-content class="d-flex justify-content-between">
+      <div class="col-8 m-0 p-0">
+        <form class="mt-3 d-flex flex-column"
+              *ngIf="!isRegister"
+              [formGroup]="formLoginGroup">
+          <mat-form-field class="col-12">
+            <input [formControlName]="'login'" matInput [placeholder]="'landing.email' | translate">
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <input [formControlName]="'password'" type="password" matInput
+                   [placeholder]="'landing.password' | translate">
+          </mat-form-field>
+        </form>
+
+        <form class="mt-3 d-flex flex-column"
+              *ngIf="isRegister"
+              [formGroup]="formRegisterGroup"
+        >
+          <mat-form-field class="col-12">
+            <mat-label>{{'landing.role.title' | translate}}</mat-label>
+
+            <mat-select [formControlName]="'role'">
+              <mat-option *ngFor="let role of roles" [value]="role.id">
+                {{role.name | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <input [formControlName]="'email'" matInput [placeholder]="'landing.email' | translate">
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <input [formControlName]="'first_name'" matInput [placeholder]="'landing.first-name' | translate">
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <input [formControlName]="'last_name'" matInput [placeholder]="'landing.second-name' | translate">
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <input [formControlName]="'password'" type="password" matInput
+                   [placeholder]="'landing.password' | translate">
+          </mat-form-field>
+
+          <mat-form-field class="col-12" *ngIf="formRegisterGroup.get('role').value === rolesEnum.assistant">
+            <input [formControlName]="'teacher'" matInput [placeholder]="'landing.role.teacher' | translate">
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-button
+              color="primary"
+              (click)="changeFormToRegister()"
+              [disabled]="isRegister && formRegisterGroup.invalid"
+      >{{(isRegister ? 'landing.finish' : 'landing.sign-up') | translate}}</button>
+      <button mat-button
+              color="primary"
+              *ngIf="isRegister"
+              (click)="changeFormToLogin()"
+      >{{'landing.cancel' | translate}}</button>
+      <button mat-button color="primary" *ngIf="!isRegister"
+              (click)="login()">{{'landing.sign-in' | translate}}</button>
+    </mat-card-actions>
+  </div>
 </div>
-
-<mat-card class="col-4">
-  <mat-card-title>QuestionMark</mat-card-title>
-  <mat-card-content class="d-flex justify-content-between">
-    <div class="col-8 m-0 p-0">
-      <form class="mt-3 d-flex flex-column"
-            *ngIf="!isRegister"
-            [formGroup]="formLoginGroup">
-        <mat-form-field class="col-12">
-          <input [formControlName]="'login'" matInput [placeholder]="'landing.email' | translate">
-        </mat-form-field>
-
-        <mat-form-field class="col-12">
-          <input [formControlName]="'password'" type="password" matInput [placeholder]="'landing.password' | translate">
-        </mat-form-field>
-      </form>
-
-      <form class="mt-3 d-flex flex-column"
-            *ngIf="isRegister"
-            [formGroup]="formRegisterGroup"
-      >
-        <mat-form-field class="col-12">
-          <mat-label>{{'landing.role.title' | translate}}</mat-label>
-
-          <mat-select [formControlName]="'role'">
-            <mat-option *ngFor="let role of roles" [value]="role.id">
-              {{role.name | translate}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field class="col-12">
-          <input [formControlName]="'email'" matInput [placeholder]="'landing.email' | translate">
-        </mat-form-field>
-
-        <mat-form-field class="col-12">
-          <input [formControlName]="'first_name'" matInput [placeholder]="'landing.first-name' | translate">
-        </mat-form-field>
-
-        <mat-form-field class="col-12">
-          <input [formControlName]="'last_name'" matInput [placeholder]="'landing.second-name' | translate">
-        </mat-form-field>
-
-        <mat-form-field class="col-12">
-          <input [formControlName]="'password'" type="password" matInput [placeholder]="'landing.password' | translate">
-        </mat-form-field>
-
-        <mat-form-field class="col-12" *ngIf="formRegisterGroup.get('role').value === rolesEnum.assistant">
-          <input [formControlName]="'teacher'" matInput [placeholder]="'landing.role.teacher' | translate">
-        </mat-form-field>
-      </form>
-    </div>
-  </mat-card-content>
-
-  <mat-card-actions>
-    <button mat-button
-            color="primary"
-            (click)="changeFormToRegister()"
-            [disabled]="isRegister && formRegisterGroup.invalid"
-    >{{(isRegister ? 'landing.finish' : 'landing.sign-up') | translate}}</button>
-    <button mat-button
-            color="primary"
-            *ngIf="isRegister"
-            (click)="changeFormToLogin()"
-    >{{'landing.cancel' | translate}}</button>
-    <button mat-button color="primary" *ngIf="!isRegister" (click)="login()">{{'landing.sign-in' | translate}}</button>
-  </mat-card-actions>
-</mat-card>

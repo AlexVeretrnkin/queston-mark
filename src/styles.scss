@@ -6,3 +6,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cursor-pointer {
   cursor: pointer;
 }
+
+.qm-card {
+  width: 100%;
+  padding: 40px;
+  border-radius: 40px;
+  background-color: #ffffff;
+}
+
+.wrapper {
+  max-width: 900px;
+  margin: auto;
+}

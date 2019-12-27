@@ -60,6 +60,9 @@ import {NavbarComponent} from '../shared/components/navbar/navbar.component';
       MatSelectModule,
       MatIconModule
     ],
+    exports: [
+      NavbarComponent
+    ],
     entryComponents: [EditTestCreateSubcategoryComponent]
   })
 export class PortalModule {

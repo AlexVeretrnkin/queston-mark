@@ -19,6 +19,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {MatSelectModule} from '@angular/material/select';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import {PortalModule} from './portal/portal.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    PortalModule
   ],
   providers: [
     {

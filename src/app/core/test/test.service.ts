@@ -37,7 +37,8 @@ export class TestService {
   public getQuestionsByTest(testId: number): Observable<any> {
     return this.httpClient.get<any>(ApiUrls.getQuestionsUrl(), {
       params: {
-        test_id: testId.toString()
+        test_id: testId.toString(),
+        sort_by_position: '1'
       }
     });
   }
@@ -85,7 +86,8 @@ export class TestService {
   public getAnswerForQuestion(id: number): Observable<AnswerModel[]> {
     return this.httpClient.get<AnswerModel[]>(ApiUrls.getAnswersUrl(), {
       params: {
-        question_id: id.toString()
+        question_id: id.toString(),
+        sort_by_position: '1'
       }
     });
   }

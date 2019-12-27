@@ -87,11 +87,35 @@ export class EditTestComponent implements OnInit {
 
   public drop(event: CdkDragDrop<any>): void {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
+    if (event.previousIndex === event.currentIndex) {
+      const answer: AnswerModel = event.container.data[0];
+      answer.position = event.currentIndex;
+
+      this.questionAnswers$ = this.testService.updateAnswerForQuestion(answer)
+        .pipe(
+          switchMap(() => this.testService.getAnswerForQuestion(this.activeQuestion.id))
+        );
+    }
   }
 
   public edit(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
+      if (Object.keys(event.container.data[0]).toString() === Object.keys(new QuestionModel()).toString() &&
+        event.previousIndex !== event.currentIndex) {
+        const quest: QuestionModel = event.container.data[0];
+        quest.position = event.currentIndex > 1 ? event.currentIndex + 1 : 1;
+
+        console.log(quest, '--', event.currentIndex);
+
+        this.testQuestions$ = this.testService.updateQuestion(quest)
+          .pipe(
+            switchMap(() => this.testService.getQuestionsByTest(this.activeTest.id)),
+            tap(x => console.log(x))
+          );
+      }
     } else {
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
@@ -199,12 +223,16 @@ export class EditTestComponent implements OnInit {
 
   public getQuestions(test: TestModel): void {
     this.activeTest = test;
+    this.activeQuestion = null;
 
     this.done = [...this.createdQuestions, ...this.done];
     this.createdQuestions = [];
     this.createdAnswers = [];
 
-    this.testQuestions$ = this.testService.getQuestionsByTest(this.activeTest.id);
+    this.testQuestions$ = this.testService.getQuestionsByTest(this.activeTest.id)
+      .pipe(tap(x => console.log(x)));
+
+    this.questionAnswers$ = null;
 
     this.changeState(this.testStateEnum.none);
   }
@@ -276,7 +304,11 @@ export class EditTestComponent implements OnInit {
       this.activeQuestion.id = null;
       this.activeQuestion.position = 1;
 
-      this.testService.createNewQuestion(this.activeQuestion)
+      this.testService.getQuestionsByTest(this.activeTest.id)
+        .pipe(
+          tap((res: QuestionModel[]) => this.activeQuestion.position = res.length + 1),
+          switchMap(() => this.testService.createNewQuestion(this.activeQuestion))
+        )
         .subscribe((result: QuestionModel) => {
           this.activeQuestion.id = result.id;
         });
@@ -290,7 +322,12 @@ export class EditTestComponent implements OnInit {
 
   private handleAnswerEditAction(answer: AnswerModel): void {
     if (!answer.id) {
-      this.testService.createAnswerForQuestion(answer).subscribe();
+      this.testService.getAnswerForQuestion(this.activeQuestion.id)
+        .pipe(
+          tap((res: AnswerModel[]) => answer.position = res.length + 1),
+          switchMap(() => this.testService.createAnswerForQuestion(answer))
+        )
+        .subscribe();
     } else {
       console.log(answer);
 

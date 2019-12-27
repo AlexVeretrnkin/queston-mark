@@ -57,7 +57,7 @@
                (cdkDragStarted)="showControls()"
                (cdkDragEnded)="hideControls()"
                *ngFor="let item of quest; let i = index"
-               [class.example-box_active]="item.id === activeQuestion.id"
+               [class.example-box_active]="item.id === activeQuestion?.id"
                (click)="getQuestionAnswers(item)"
           >
             {{(i + 1) + '. ' + item.name}}

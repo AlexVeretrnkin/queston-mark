@@ -1,46 +1,58 @@
 {
   "landing": {
     "sign-in": "Войти",
-    "sign-up": "Зарегистрироваться",
-    "email": "Email",
+    "sign-up": "Зарегистрироватся",
+    "email": "Електронная почта",
     "password": "Пароль",
     "first-name": "Имя",
     "second-name": "Фамилия",
-    "finish": "Далле",
-    "cancel": "Отмена",
+    "finish": "Закончить",
+    "cancel": "Отменить",
     "role": {
-      "title": "Роль",
-      "teacher": "Учитель",
-      "student": "Ученик",
+      "title": "Ваша роль",
+      "teacher": "Преподователь",
+      "student": "Студент",
       "assistant": "Асистент"
     }
   },
   "home": {
-    "create": "Создать тест",
-    "edit": "Редактировать тест",
+    "create": "Создание тестов",
+    "edit": "Изменение тестов",
     "pass": "Пройти тест"
   },
   "test": {
-    "info": "Инфориация про тест",
+    "info": "Информация про тест",
     "name": "Имя",
     "category": "Категория",
     "create": "Создать новый тест",
     "question-create": {
       "title": "Новый вопрос",
-      "name": "Имя вопроса",
-      "text": "Текст вопроса",
+      "name": "Название вопроса",
+      "text": "Подпись к вопросу",
       "category": "Категория вопроса",
       "subCategoryName": "Подкатегория вопроса"
     }
   },
   "question": {
-    "right": "Правильный",
-    "in-correct": "Неправильный"
+    "right": "Правильно",
+    "in-correct": "Не правильно"
   },
   "navbar" : {
     "profile": "Профиль",
-    "test": "Tests",
-    "random": "Nothing for today"
+    "test": "Тесты",
+    "dashboard": "Главная",
+    "random": "Пока-что все хорошо"
+  },
+  "profile" : {
+    "title": "Профиль",
+    "credentials": "Credentials",
+    "permissions": "Права",
+    "general": "Основное",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "role": "Роль",
+    "email": "Електронная почта",
+    "sex": "Пол",
+    "avatar": "Фото профиля"
   }
 }
-

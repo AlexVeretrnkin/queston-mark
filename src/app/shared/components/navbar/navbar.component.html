@@ -34,19 +34,9 @@
 
 
 
-  <button mat-button class="settings" *ngIf="displaySettings" [matMenuTriggerFor]="menu">
+  <div class="settings" *ngIf="displaySettings" [matMenuTriggerFor]="menu">
     <img src="assets/icons/settings.svg">
-  </button>
-
-  <mat-menu #menu="mdMenu" [overlapTrigger]="false">
-    <div class="language" *ngIf="displayLanguageSelect">
-      <img class="language-image" alt=""
-           *ngFor="let lang of languages"
-           (click)="changeLanguage(lang)"
-           [src]="lang.image"
-           [class.language-image_active]="chosenLanguage.json === lang.json">
-    </div>
-  </mat-menu>
+  </div>
 
 
   <div class="language" *ngIf="displayLanguageSelect">
@@ -57,3 +47,13 @@
          [class.language-image_active]="chosenLanguage.json === lang.json">
   </div>
 </div>
+
+<mat-menu #menu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
+  <div class="language" *ngIf="displayLanguageSelect">
+    <img class="language-image" alt=""
+         *ngFor="let lang of languages"
+         (click)="changeLanguage(lang)"
+         [src]="lang.image"
+         [class.language-image_active]="chosenLanguage.json === lang.json">
+  </div>
+</mat-menu>

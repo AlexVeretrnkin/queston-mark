@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material';
+import {MatCardModule, MatMenuModule} from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 
@@ -65,10 +65,11 @@ import { PassTestComponent } from './portal/pass-test/pass-test.component';
       MatSelectModule,
       MatIconModule,
       FormsModule,
-      MatCheckboxModule
+      MatCheckboxModule,
+      MatMenuModule
     ],
     exports: [
-      NavbarComponent
+      NavbarComponent,
     ],
     entryComponents: [
       EditTestCreateSubcategoryComponent,

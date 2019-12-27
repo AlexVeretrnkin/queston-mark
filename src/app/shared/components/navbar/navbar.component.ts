@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TranslationModel} from '../../models/translation.model';
 import {TranslateService} from '@ngx-translate/core';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

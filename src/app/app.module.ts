@@ -20,6 +20,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {MatSelectModule} from '@angular/material/select';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import {PortalModule} from './portal/portal.module';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {PortalModule} from './portal/portal.module';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    MatMenuModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     BrowserAnimationsModule,

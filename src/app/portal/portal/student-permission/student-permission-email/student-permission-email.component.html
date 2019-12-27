@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Student's email</h1>
+
+<mat-form-field class="col-12">
+  <input [(ngModel)]="email" matInput [placeholder]="'email'">
+</mat-form-field>
+
+<div mat-dialog-actions>
+  <button mat-button [disabled]="!email" [mat-dialog-close]="email" cdkFocusInitial>Ok</button>
+</div>

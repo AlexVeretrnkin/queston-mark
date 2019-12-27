@@ -18,3 +18,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   max-width: 900px;
   margin: auto;
 }
+
+.back {
+  top: 50px;
+  left: 100px;
+
+  cursor: pointer;
+
+  &_icon {
+    font-size: 50px;
+  }
+}

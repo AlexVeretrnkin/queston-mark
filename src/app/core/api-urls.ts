@@ -15,6 +15,10 @@ export class ApiUrls {
     return `${this.apiRoot}auth/assistants/`;
   }
 
+  public static getRoleUrl(): string {
+    return `${this.apiRoot}auth/get-role/`;
+  }
+
   public static getLoginUrl(): string {
     return `${this.apiRoot}auth/login/`;
   }
@@ -53,5 +57,25 @@ export class ApiUrls {
 
   public static getAnswerUpdateUrl(id: string): string {
     return `${this.apiRoot}test-api/answers/${id}/`;
+  }
+
+  public static getPermissionUrl(): string {
+    return `${this.apiRoot}test-api/allow-test/`;
+  }
+
+  public static getStartPassTestUrl(): string {
+    return `${this.apiRoot}analytics/solved-tests/`;
+  }
+
+  public static getSolvedQuestionsUrl(): string {
+    return `${this.apiRoot}analytics/solved-questions/`;
+  }
+
+  public static getSolvedAnswersUrl(): string {
+    return `${this.apiRoot}analytics/solved-answers/`;
+  }
+
+  public static getFinishTestUrl(): string {
+    return `${this.apiRoot}analytics/finish-test/`;
   }
 }

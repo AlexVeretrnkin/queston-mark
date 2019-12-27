@@ -3,14 +3,21 @@
   <mat-icon class="user_icon" aria-hidden="false" aria-label="delete">perm_identity</mat-icon>
 </div>
 
+<div class="back position-absolute"
+     [routerLink]="'/'">
+  <mat-icon class="back_icon" aria-hidden="false" aria-label="delete">arrow_back</mat-icon>
+</div>
+
 <button class="link text-center d-flex align-items-center justify-content-center"
         mat-raised-button
+        *ngIf="this.isTeacher"
         (click)="openCreateTestModal()"
 >
   {{'home.create' | translate}}
 </button>
 
 <a class="link d-flex align-items-center justify-content-center"
+   *ngIf="this.isTeacher"
    mat-raised-button
    [href]="'create-test'"
    [routerLink]="'create-test'"
@@ -27,6 +34,7 @@
 </a>
 
 <a class="link d-flex align-items-center justify-content-center"
+   *ngIf="this.isTeacher"
    mat-raised-button
    [href]="'student-permission'"
    [routerLink]="'student-permission'"

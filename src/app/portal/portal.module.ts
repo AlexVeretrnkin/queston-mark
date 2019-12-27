@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
+import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 
 import { HomeComponent } from './portal/home/home.component';
 
@@ -18,7 +19,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { PortalComponent } from './portal/portal.component';
 import { EditTestComponent } from './portal/edit-test/edit-test.component';
@@ -27,7 +29,8 @@ import { EditTestCreateAnswerComponent } from './portal/edit-test/edit-test-crea
 import { ChooseTestComponent } from './portal/choose-test/choose-test.component';
 import { StudentPermissionComponent } from './portal/student-permission/student-permission.component';
 import { ProfileComponent } from './portal/profile/profile.component';
-import {NavbarComponent} from '../shared/components/navbar/navbar.component';
+import { StudentPermissionEmailComponent } from './portal/student-permission/student-permission-email/student-permission-email.component';
+import { PassTestComponent } from './portal/pass-test/pass-test.component';
 
 @NgModule(
   {
@@ -40,6 +43,8 @@ import {NavbarComponent} from '../shared/components/navbar/navbar.component';
       ChooseTestComponent,
       StudentPermissionComponent,
       ProfileComponent,
+      StudentPermissionEmailComponent,
+      PassTestComponent,
       NavbarComponent
     ],
     imports: [
@@ -58,12 +63,14 @@ import {NavbarComponent} from '../shared/components/navbar/navbar.component';
       ReactiveFormsModule,
       MatAutocompleteModule,
       MatSelectModule,
-      MatIconModule
+      MatIconModule,
+      FormsModule,
+      MatCheckboxModule
     ],
-    exports: [
-      NavbarComponent
-    ],
-    entryComponents: [EditTestCreateSubcategoryComponent]
+    entryComponents: [
+      EditTestCreateSubcategoryComponent,
+      StudentPermissionEmailComponent
+    ]
   })
 export class PortalModule {
 }

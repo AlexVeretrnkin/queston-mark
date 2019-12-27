@@ -1,11 +1,23 @@
-<mat-card class="test mt-5 mb-3"
-          *ngFor="let test of tests$ | async">
-  <mat-card-header>
-    <mat-card-title>{{test.name}}</mat-card-title>
-    <mat-card-subtitle>{{test.category}}</mat-card-subtitle>
-  </mat-card-header>
+<div class="back position-absolute"
+     [routerLink]="'/portal'"
+>
+  <mat-icon class="back_icon" aria-hidden="false" aria-label="delete">arrow_back</mat-icon>
+</div>
 
-  <mat-card-content>
-    {{test.information}}
-  </mat-card-content>
-</mat-card>
+<h2 class="mt-5">Your tests</h2>
+
+<div class="h-100 w-100 d-flex flex-wrap justify-content-around">
+  <mat-card class="test mt-5 mb-3"
+            *ngFor="let test of tests$ | async"
+            (click)="startPassingTest(test)"
+  >
+    <mat-card-header>
+      <mat-card-title>{{test.name}}</mat-card-title>
+      <mat-card-subtitle>{{test.category}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      {{test.information}}
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TranslationModel} from '../../models/translation.model';
 import {TranslateService} from '@ngx-translate/core';
+import {AuthService} from '../../../core/auth/auth.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit {
 
 
   constructor(private translateService: TranslateService,
+              private authService: AuthService
   ) {
   }
 
@@ -45,8 +47,10 @@ export class NavbarComponent implements OnInit {
 
   public changeLanguage(lang: any): void {
     this.chosenLanguage = lang;
-
     this.translateService.setDefaultLang(this.chosenLanguage.json);
   }
 
+  private logout() {
+    this.authService.removeTokens();
+  }
 }

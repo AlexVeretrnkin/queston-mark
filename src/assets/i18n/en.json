@@ -41,7 +41,8 @@
     "profile": "Profile",
     "test": "Tests",
     "dashboard": "Dashboard",
-    "random": "Nothing for today"
+    "random": "Nothing for today",
+    "sign-out": "Sign out"
   },
   "profile" : {
     "title": "Profile",

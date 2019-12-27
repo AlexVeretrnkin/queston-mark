@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -13,18 +14,33 @@ export class ProfileComponent implements OnInit {
   public permissionsFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
+              private http: HttpClient,
   ) {
+
+
     this.profileFormGroup = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      firstName: [{
+        value: null,
+        disabled: true
+      }],
+      lastName: [{
+        value: null,
+        disabled: true
+      }]
     });
 
     this.credentialsFormGroup = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: [{
+        value: null,
+        disabled: true
+      }],
     });
 
     this.permissionsFormGroup = this.formBuilder.group({
-      role: ['', Validators.required],
+      role: [{
+        value: null,
+        disabled: true
+      }],
     });
   }
 

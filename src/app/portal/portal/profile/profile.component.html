@@ -15,10 +15,10 @@
     <form class="mt-3 d-flex flex-column"
           [formGroup]="profileFormGroup">
       <mat-form-field class="col-12">
-        <input [formControlName]="'firstName'" matInput [placeholder]="'profile.firstName' | translate">
+        <input [formControlName]="'firstName'" matInput [placeholder]="'profile.firstName' | translate" disabled>
       </mat-form-field>
       <mat-form-field class="col-12">
-        <input [formControlName]="'lastName'" matInput [placeholder]="'profile.lastName' | translate">
+        <input [formControlName]="'lastName'" matInput [placeholder]="'profile.lastName' | translate" disabled>
       </mat-form-field>
     </form>
     </div>

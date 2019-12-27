@@ -58,5 +58,8 @@
   },
   "dashboard" : {
     "title": "Dashboard"
+  },
+  "tests": {
+    "title": "Tests"
   }
 }

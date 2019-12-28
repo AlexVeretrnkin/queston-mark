@@ -34,6 +34,14 @@
     </a>
 
     <a class="link d-flex align-items-center justify-content-center col-6"  style="display: inline-block"
+       mat-raised-button
+       [href]="'stats'"
+       [routerLink]="'stats'"
+    >
+      Stats
+    </a>
+
+    <a class="link d-flex align-items-center justify-content-center col-6"  style="display: inline-block"
        *ngIf="this.isTeacher"
        mat-raised-button
        [href]="'student-permission'"

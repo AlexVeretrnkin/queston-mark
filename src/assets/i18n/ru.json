@@ -56,5 +56,11 @@
     "email": "Електронная почта",
     "sex": "Пол",
     "avatar": "Фото профиля"
+  },
+  "dashboard" : {
+    "title": "Dashboard"
+  },
+  "tests": {
+    "title": "Tests"
   }
 }

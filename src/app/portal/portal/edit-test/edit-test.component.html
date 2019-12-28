@@ -11,7 +11,7 @@
                          [class.test-active]="test?.id === activeTest?.id"
                          (click)="getQuestions(test)"
           >
-            {{test.name}}
+            {{test.name | slice:0 :21}}
           </mat-list-item>
           <mat-divider></mat-divider>
         </ng-container>

@@ -46,7 +46,8 @@
   </div>
 </div>
 
-<mat-menu #menu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
+<mat-menu class="d-flex flex-column justify-content-center align-items-center"
+          #menu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
   <button mat-button (click)="logout()" [routerLink]="''"> {{'navbar.sign-out' |  translate }} </button>
 </mat-menu>
 <!--<div class="language" *ngIf="displayLanguageSelect">

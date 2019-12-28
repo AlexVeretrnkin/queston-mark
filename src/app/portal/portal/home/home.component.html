@@ -1,4 +1,4 @@
-<app-navbar displaySettings displaySmallLogo displayMiddle></app-navbar>
+<!--<app-navbar displaySettings displaySmallLogo displayMiddle></app-navbar>-->
 
 
 <div class="wrapper">
@@ -9,7 +9,7 @@
 
 
     <div class="d-flex flex-wrap">
-      <button class="link text-center d-flex align-items-center justify-content-center col-6"
+      <button class="qm-card link text-center d-flex align-items-center justify-content-center col-6"
               mat-raised-button
               *ngIf="this.isTeacher"
               (click)="openCreateTestModal()"
@@ -17,7 +17,7 @@
         {{'home.create' | translate}}
       </button>
 
-      <a class="link d-flex align-items-center justify-content-center col-6" style="display: inline-block"
+      <a class="qm-card link d-flex align-items-center justify-content-center col-6" style="display: inline-block"
          *ngIf="this.isTeacher"
          mat-raised-button
          [href]="'create-test'"
@@ -34,7 +34,7 @@
       <!--      {{'home.pass' | translate}}-->
       <!--    </a>-->
 
-      <a class="link d-flex align-items-center justify-content-center col-6" style="display: inline-block"
+      <a class="qm-card link d-flex align-items-center justify-content-center col-6" style="display: inline-block"
          mat-raised-button
          [href]="'stats'"
          [routerLink]="'stats'"
@@ -42,7 +42,7 @@
         Stats
       </a>
 
-      <a class="link d-flex align-items-center justify-content-center col-6" style="display: inline-block"
+      <a class="qm-card link d-flex align-items-center justify-content-center col-6" style="display: inline-block"
          *ngIf="this.isTeacher"
          mat-raised-button
          [href]="'student-permission'"

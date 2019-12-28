@@ -1,27 +1,22 @@
-<app-navbar displaySettings displaySmallLogo displayMiddle></app-navbar>
-
-
 <div class="wrapper">
-  <div class="qm-card" style="margin-top: 50px">
-    <h1 class="header">
+
+  <div class="qm-card w-100 d-flex flex-wrap justify-content-around">
+    <h1 class="header w-100">
       {{'tests.title' | translate}}
     </h1>
 
+    <mat-card class="test mt-5 mb-3"
+              *ngFor="let test of tests$ | async"
+              (click)="startPassingTest(test)"
+    >
+      <mat-card-header>
+        <mat-card-title>{{test.name}}</mat-card-title>
+        <mat-card-subtitle>{{test.category}}</mat-card-subtitle>
+      </mat-card-header>
 
-    <div class="h-100 w-100 d-flex flex-wrap justify-content-around">
-      <mat-card class="test mt-5 mb-3"
-                *ngFor="let test of tests$ | async"
-                (click)="startPassingTest(test)">
-        <mat-card-header>
-          <mat-card-title>{{test.name}}</mat-card-title>
-          <mat-card-subtitle>{{test.category}}</mat-card-subtitle>
-        </mat-card-header>
-
-        <mat-card-content>
-          {{test.information}}
-        </mat-card-content>
-      </mat-card>
-    </div>
-
+      <mat-card-content>
+        {{test.information}}
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

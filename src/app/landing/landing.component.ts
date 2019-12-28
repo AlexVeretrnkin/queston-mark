@@ -70,6 +70,8 @@ export class LandingComponent implements OnInit {
 
     this.translateService.setDefaultLang(this.chosenLanguage.json);
 
+    window.localStorage.setItem('lang', this.chosenLanguage.json);
+
     this.isRegister = false;
 
     this.formLoginGroup = this.formBuilder.group({

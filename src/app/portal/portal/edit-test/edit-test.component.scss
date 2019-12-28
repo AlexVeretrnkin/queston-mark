@@ -19,8 +19,16 @@
   z-index: 100;
 }
 
+mat-grid-list {
+  margin-top: 15px;
+}
+
 mat-grid-tile {
   background: white;
+
+  overflow: auto;
+
+  height: 100%;
 }
 
 mat-list-item {

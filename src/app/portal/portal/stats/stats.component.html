@@ -1,13 +1,14 @@
-<div class="back position-absolute"
-     [routerLink]="'/portal'"
->
-  <mat-icon class="back_icon" aria-hidden="false" aria-label="delete">arrow_back</mat-icon>
-</div>
+<!--<div class="back position-absolute"-->
+<!--     [routerLink]="'/portal'"-->
+<!--&gt;-->
+<!--  <mat-icon class="back_icon" aria-hidden="false" aria-label="delete">arrow_back</mat-icon>-->
+<!--</div>-->
 
-<h2 class="mt-5 mb-5 heading">Analytics</h2>
+<div class="qm-card w-75 mt-5 d-flex flex-wrap justify-content-start">
 
-<div class="w-100 mt-5 d-flex flex-wrap justify-content-around">
-  <mat-card class="w-25 mt-3 mb-3 mr-auto ml-auto position-relative"
+  <h2 class="w-100 heading">Analytics</h2>
+
+  <mat-card class="w-25 mt-3 mb-3 ml-5 mr-auto ml-2 mr-2 position-relative"
             *ngFor="let item of tests"
             (click)="continueTest(item)"
   >

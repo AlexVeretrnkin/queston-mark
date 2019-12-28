@@ -307,7 +307,11 @@ export class EditTestComponent implements OnInit {
           switchMap(() => this.testService.createNewQuestion(this.activeQuestion))
         )
         .subscribe((result: QuestionModel) => {
+          this.createdQuestions.pop();
+
           this.activeQuestion.id = result.id;
+
+          this.changeDetectorRef.detectChanges();
         });
     } else {
       console.log('up');
@@ -324,7 +328,11 @@ export class EditTestComponent implements OnInit {
           tap((res: AnswerModel[]) => answer.position = res.length + 1),
           switchMap(() => this.testService.createAnswerForQuestion(answer))
         )
-        .subscribe();
+        .subscribe(() => {
+          this.createdAnswers.pop();
+
+          this.changeDetectorRef.detectChanges();
+        });
     } else {
       console.log(answer);
 

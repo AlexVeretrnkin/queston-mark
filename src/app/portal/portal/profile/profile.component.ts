@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -42,6 +43,27 @@ export class ProfileComponent implements OnInit {
         disabled: true
       }],
     });
+
+    console.log('Test');
+
+    this.http.get(environment.apiUrl + 'auth/get_user_info/').subscribe((result: any) => {
+      console.log(result);
+      this.profileFormGroup.patchValue({
+        firstName: result.first_name,
+        lastName: result.last_name,
+      });
+
+      this.credentialsFormGroup.patchValue({
+        email: result.email
+      });
+    });
+
+    this.http.get(environment.apiUrl + 'auth/get-role/').subscribe((result: any) => {
+      this.permissionsFormGroup.patchValue({
+        role: result.role,
+      });
+    });
+
   }
 
   ngOnInit() {

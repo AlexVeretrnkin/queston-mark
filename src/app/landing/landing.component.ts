@@ -147,6 +147,8 @@ export class LandingComponent implements OnInit {
     this.chosenLanguage = lang;
 
     this.translateService.setDefaultLang(this.chosenLanguage.json);
+
+    window.localStorage.setItem('lang', this.chosenLanguage.json);
   }
 
   public changeFormToLogin(): void {

@@ -14,6 +14,8 @@ export class PortalComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    console.log(window.localStorage.getItem('lang'));
+
     this.translateService.setDefaultLang(window.localStorage.getItem('lang'));
   }
 }

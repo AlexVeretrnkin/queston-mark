@@ -48,6 +48,8 @@ export class NavbarComponent implements OnInit {
   public changeLanguage(lang: any): void {
     this.chosenLanguage = lang;
     this.translateService.setDefaultLang(this.chosenLanguage.json);
+
+    window.localStorage.setItem('lang', this.chosenLanguage.json);
   }
 
   private logout() {

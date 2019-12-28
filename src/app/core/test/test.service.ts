@@ -113,6 +113,14 @@ export class TestService {
     });
   }
 
+  public getPassingTest(): Observable<any> {
+    return this.httpClient.get<any>(ApiUrls.getStartPassTestUrl());
+  }
+
+  public getTestStats(): Observable<TestModel[]> {
+    return this.httpClient.get<TestModel[]>(ApiUrls.getStartPassTestUrl());
+  }
+
   public solveQuestion(testId: number, questionId: number): Observable<void> {
     return this.httpClient.post<void>(ApiUrls.getSolvedQuestionsUrl(), {
       solved_test: testId,

@@ -12,7 +12,7 @@
 
       <mat-list role="list" class="w-75 cursor-pointer">
         <ng-container *ngFor="let test of testList$ | async">
-          <mat-list-item role="listitem" class="d-flex justify-content-center text-center"
+          <mat-list-item role="listitem" class="overflow-hidden d-flex justify-content-center text-center"
                          [class.test-active]="test?.id === activeTest?.id"
                          (click)="getQuestions(test)"
           >

@@ -31,6 +31,7 @@ import { StudentPermissionComponent } from './portal/student-permission/student-
 import { ProfileComponent } from './portal/profile/profile.component';
 import { StudentPermissionEmailComponent } from './portal/student-permission/student-permission-email/student-permission-email.component';
 import { PassTestComponent } from './portal/pass-test/pass-test.component';
+import { StatsComponent } from './portal/stats/stats.component';
 
 @NgModule(
   {
@@ -45,7 +46,8 @@ import { PassTestComponent } from './portal/pass-test/pass-test.component';
       ProfileComponent,
       StudentPermissionEmailComponent,
       PassTestComponent,
-      NavbarComponent
+      NavbarComponent,
+      StatsComponent
     ],
     imports: [
       CommonModule,

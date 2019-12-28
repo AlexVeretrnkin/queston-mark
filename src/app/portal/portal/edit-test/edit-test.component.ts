@@ -141,7 +141,7 @@ export class EditTestComponent implements OnInit {
   }
 
   public createQuestionDrag(event: CdkDragDrop<any>): void {
-    if (event.previousContainer === event.container || this.createdQuestions.length > 0) {
+    if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(event.previousContainer.data,

@@ -23,6 +23,12 @@ mat-grid-tile {
   background: white;
 }
 
+mat-list-item {
+  .mat-list-item-content {
+    overflow: hidden;
+  }
+}
+
 .heading {
   margin-top: 40px;
 

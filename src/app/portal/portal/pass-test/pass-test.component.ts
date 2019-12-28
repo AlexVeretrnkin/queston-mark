@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { from, of } from 'rxjs';
-import { flatMap, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { concatMap, flatMap, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { TestService } from '../../../core/test/test.service';
 import { AnswerQuestionModel } from '../../../shared/models/test/answer-question.model';
@@ -23,7 +23,9 @@ export class PassTestComponent implements OnInit {
 
   private testId: number;
 
-  private tempQuestion: QuestionModel;
+  private chosenTest: number;
+
+  private tempQuestion: QuestionModel[];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,22 +38,30 @@ export class PassTestComponent implements OnInit {
   public ngOnInit(): void {
     this.answersQuestions = [];
 
+    this.testService.getPassingTest()
+      .subscribe((res) => {
+        console.log(res);
+
+        this.testId = res[res.length - 1].id;
+      });
+
     this.route.paramMap
       .pipe(
-        tap((params: ParamMap) => this.testId = parseInt(params.get('id'), 10))
+        tap((params: ParamMap) => this.chosenTest = parseInt(params.get('id'), 10))
       )
       .subscribe();
 
-    this.testService.getQuestionsByTest(this.testId)
+    this.testService.getQuestionsByTest(this.chosenTest)
       .pipe(
+        tap((question: QuestionModel[]) => this.tempQuestion = question),
         flatMap((item: QuestionModel[]) => item),
-        tap((question: QuestionModel) => this.tempQuestion = question),
-        mergeMap((question: QuestionModel) => this.testService.getAnswerForQuestion(question.id)),
+        tap((question: QuestionModel) => console.log(question)),
+        concatMap((question: QuestionModel) => this.testService.getAnswerForQuestion(question.id)),
         tap(x => console.log(x)),
         tap((answers: AnswerModel[]) => {
           if (answers[0]) {
             const answQuest: AnswerQuestionModel = new AnswerQuestionModel();
-            answQuest.question = this.tempQuestion;
+            answQuest.question = null;
             answQuest.answers = answers;
 
             this.answersQuestions.push(answQuest);
@@ -59,6 +69,10 @@ export class PassTestComponent implements OnInit {
         })
       )
       .subscribe(() => {
+        this.answersQuestions.forEach((item, i) => {
+          item.question = this.tempQuestion[i];
+        });
+
         this.changeDetectorRef.detectChanges();
       });
   }
